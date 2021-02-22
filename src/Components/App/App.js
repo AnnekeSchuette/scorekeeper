@@ -8,15 +8,20 @@ export default function App() {
   return (
     <div className="App">
       <header className="AppHeader">Score Keeper</header>
-      <PlayerForm
-      onAddPlayer={(e) => {
-        e.preventDefault();
-        console.log('Form submitted');
-        }} />
-        <Player name={"John Doe"} score={20} onPlus={() => console.log('Plus!')} onMinus={() => console.log('Minus!')} />
-        <Player name={"Jane Doe"} score={30} onPlus={() => console.log('Plus!')} onMinus={() => console.log('Minus!')} />
-        <Button name={"Reset Scores"} />
-        <Button name={"Reset All"} />
+      <main className="AppMain">
+        <PlayerForm
+        onAddPlayer={(e) => {
+          e.preventDefault();
+          console.log('Form submitted');
+          }} />
+
+          <Player name={"John Doe"} score={20} onPlus={() => console.log('Plus!')} onMinus={() => console.log('Minus!')} />
+
+          <Player name={"Jane Doe"} score={30} onPlus={() => console.log('Plus!')} onMinus={() => console.log('Minus!')} />
+
+          <Button name={"Reset Scores"} />
+          <Button name={"Reset All"} />
+        </main>
     </div>
   )
 }
