@@ -1,10 +1,12 @@
 import React from 'react';
 import { useState } from 'react'
 import './App.css';
+import Header from '../Header/Header';
 import PlayerForm from '../PlayerForm/PlayerForm';
 import Button from '../Button/Button';
 import Player from '../Player/Player';
 import Navigation from '../Navigation/Navigation';
+import GameForm from '../GameForm/GameForm';
 
 function App() {
 
@@ -38,9 +40,13 @@ function App() {
     setPlayers(players.map(player => ({ ...player, score: 0 })))
   }
 
+  function handleCreateGame(gameName, playerNames){
+    console.log(gameName, playerNames)
+  }
+
   return (
     <div className="App">
-      <header className="AppHeader">Score Keeper</header>
+      <Header title={"Score Keeper"} />
       <main className="AppMain">
         <PlayerForm
           onAddPlayer={handleAddPlayer}
@@ -63,9 +69,15 @@ function App() {
           onClick={resetAll}
           name={"Reset All"}
         />
+
+        <h3>Game Form</h3>
+        <GameForm onCreateGame={handleCreateGame}/>
+
       </main>
+
       <Navigation />
     </div>
   )
 }
+
 export default App
