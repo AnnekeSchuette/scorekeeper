@@ -1,3 +1,13 @@
 .PlayerForm {
   display: grid;
 }
+
+.PlayerForm__label {
+ margin-bottom:5px;
+}
+
+.PlayerForm__input {
+  border: 1px solid #222;
+  padding: 5px 10px;
+  font-size: 1em;
+}
