@@ -7,8 +7,8 @@ import Button from '../Button/Button';
 import Player from '../Player/Player';
 import Navigation from '../Navigation/Navigation';
 import GameForm from '../GameForm/GameForm';
-
 import HistoryEntry from '../HistoryEntry/HistoryEntry';
+
 function App() {
 
   const [players, setPlayers] = useState([])
@@ -20,12 +20,19 @@ function App() {
   }
 
   function handleCreateGame(nameOfGame, playerNames){
-    setPlayers([playerNames.map(player => ({name: player.name, score: 0}))])
+    setPlayers([
+      playerNames.map(player => ({name: player.name, score: 0}))
+    ])
     setCurrentGame(nameOfGame)
   }
 
   function handleSaveGame(){
-    setGames(oldGames => [...oldGames, {nameOfGame: currentGame, players: [players.map(player => player)]}])
+    setGames(oldGames => [
+      ...oldGames, {
+        nameOfGame: currentGame,
+        players: players.map(player => ({name: player.name, score: 0}))
+      }]
+      )
     resetAll()
   }
 
