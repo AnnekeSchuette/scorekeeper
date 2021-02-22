@@ -63,7 +63,7 @@ function App() {
           onAddPlayer={handleAddPlayer}
         />
 
-        {players.map((player, index) =>
+        {players && players.map((player, index) =>
           <Player
             key={player.index}
             name={player.name}
@@ -90,7 +90,7 @@ function App() {
         <GameForm onCreateGame={handleCreateGame}/>
 
         <h3>History</h3>
-        {games.map((nameOfGame, players) =>
+        {games && games.map((nameOfGame, players) =>
             <HistoryEntry
             nameOfGame={nameOfGame}
             players={players}
