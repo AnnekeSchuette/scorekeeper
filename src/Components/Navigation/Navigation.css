@@ -1,0 +1,14 @@
+.Navigation {
+  display: flex;
+  gap:1px;
+}
+
+.Navigation__Button {
+  flex:1 1 auto;
+  border-radius: 0;
+  margin:0;
+}
+
+.Navigation__Button--active {
+  background:hotpink;
+}

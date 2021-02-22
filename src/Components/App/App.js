@@ -4,6 +4,7 @@ import './App.css';
 import PlayerForm from '../PlayerForm/PlayerForm';
 import Button from '../Button/Button';
 import Player from '../Player/Player';
+import Navigation from '../Navigation/Navigation';
 
 function App() {
 
@@ -63,6 +64,7 @@ function App() {
           name={"Reset All"}
         />
       </main>
+      <Navigation />
     </div>
   )
 }
