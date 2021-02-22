@@ -24,7 +24,7 @@ function App() {
     setCurrentGame(nameOfGame)
   }
 
-  function saveGame(){
+  function handleSaveGame(){
     setGames(oldGames => [...oldGames, {nameOfGame: currentGame, players: [players.map(player => player)]}])
     resetAll()
   }
@@ -50,7 +50,10 @@ function App() {
   }
 
   function resetScore(){
-    setPlayers(players.map(player => ({ ...player, score: 0 })))
+    setPlayers(players.map(player => (
+      { ...player, score: 0 }
+      )
+    ))
   }
 
   console.log(currentGame, players, games)
@@ -82,7 +85,7 @@ function App() {
           name={"Reset All"}
         />
         <Button
-          onClick={() => saveGame()}
+          onClick={handleSaveGame}
           name={"End Game"}
         />
 
@@ -94,13 +97,16 @@ function App() {
             <HistoryEntry
             nameOfGame={nameOfGame}
             players={players}
-            />
-          )
+            />)
         }
 
       </main>
 
-      <Navigation />
+      <Navigation
+        onNavigate={index => console.log(index)}
+        activeIndex={0}
+        pages={['Play', 'History']}
+      />
     </div>
   )
 }
