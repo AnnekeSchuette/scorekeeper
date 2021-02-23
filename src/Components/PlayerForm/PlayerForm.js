@@ -1,11 +1,11 @@
-import './PlayerForm.css'
+import styled from 'styled-components/macro'
 
 export default function PlayerForm({onAddPlayer}){
   return (
-    <form className="PlayerForm" onSubmit={handleSubmit}>
-      <label className="PlayerForm__label" htmlFor="player">Add player:</label>
-      <input className="PlayerForm__input" type="text" name="player" placeholder="Player name"></input>
-    </form>
+    <Form onSubmit={handleSubmit}>
+      <Label htmlFor="player">Add player:</Label>
+      <Input id="player" type="text" name="player" placeholder="Player name" />
+    </Form>
   )
 
   function handleSubmit(event){
@@ -18,3 +18,17 @@ export default function PlayerForm({onAddPlayer}){
     input.focus()
   }
 }
+
+const Form = styled.form`
+  display: grid;
+`
+
+const Label = styled.label`
+ margin-bottom:5px;
+`
+
+const Input = styled.input`
+  border: 1px solid #222;
+  padding: 5px 10px;
+  font-size: 1em;
+`

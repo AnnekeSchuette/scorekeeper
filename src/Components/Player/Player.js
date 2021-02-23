@@ -1,4 +1,4 @@
-import './Player.css';
+import styled from 'styled-components/macro'
 import Button from '../Button/Button';
 
 export default function Player({
@@ -8,11 +8,18 @@ export default function Player({
   onPlus
 }){
   return(
-    <section className="Player">
+    <PlayerStyled score={score}>
       {name}
-      <Button onClick={onMinus} name={"-"} />
-      {score}
-      <Button onClick={onPlus} name={"+"} />
-    </section>
+      <Button onClick={onMinus}>-</Button>
+      <span>{score}</span>
+      <Button onClick={onPlus}>+</Button>
+    </PlayerStyled>
     )
 }
+
+const PlayerStyled = styled.section`
+
+  & span {
+    color: hsl(${props => Math.min(props.score * 15, 100)}, 70%, 50%);
+  }
+`

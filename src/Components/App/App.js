@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react'
-import './App.css';
+import styled from 'styled-components/macro'
+import AppHeader from '../AppHeader/AppHeader';
 import PlayerForm from '../PlayerForm/PlayerForm';
 import Button from '../Button/Button';
 import Player from '../Player/Player';
@@ -8,6 +9,7 @@ import Player from '../Player/Player';
 function App() {
 
   const [players, setPlayers] = useState([])
+  const [title, setTitle] = useState("Score keeper")
 
   function handleAddPlayer(name){
     setPlayers(oldPlayers => [...oldPlayers, {name, score: 0}])
@@ -38,9 +40,9 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="AppHeader">Score Keeper</header>
-      <main className="AppMain">
+    <AppGrid>
+      <AppHeader>{title}</AppHeader>
+      <AppMain>
         <PlayerForm
           onAddPlayer={handleAddPlayer}
         />
@@ -53,17 +55,30 @@ function App() {
             onMinus={() => handleMinus(index)}
           />
         )}
-
-        <Button
-          onClick={resetScore}
-          name={"Reset Scores"}
-        />
-        <Button
-          onClick={resetAll}
-          name={"Reset All"}
-        />
-      </main>
-    </div>
+        <NavigationGrid>
+          <Button onClick={resetScore}>Reset Scores</Button>
+          <Button onClick={resetAll}>Reset All</Button>
+        </NavigationGrid>
+      </AppMain>
+    </AppGrid>
   )
 }
+
+const AppGrid = styled.div`
+  text-align: center;
+  max-width: 375px;
+  margin: 0 auto;
+`
+
+const AppMain = styled.main`
+  padding:20px;
+  display: grid;
+  gap:10px;
+`
+
+const NavigationGrid = styled.nav`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`
+
 export default App
