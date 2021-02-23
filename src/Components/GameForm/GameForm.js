@@ -14,12 +14,14 @@ export default function GameForm({onCreateGame}){
   function handleSubmit(event){
     event.preventDefault()
     const form = event.target
-    const inputGame = form.elements.gamename
-    const inputPlayers = form.elements.playernames
-    const nameOfGame = inputGame.value
-    const playerNames = inputPlayers.value.trim().split(',')
-    onCreateGame(nameOfGame, playerNames)
+    const {nameOfGame, playerNames} = form.elements
+
+    onCreateGame({
+      nameOfGame: nameOfGame.value,
+      playerNames: playerNames.value.split(',').map(name => name.trim())
+    })
+
     form.reset()
-    inputGame.focus()
+    nameOfGame.focus()
   }
 }

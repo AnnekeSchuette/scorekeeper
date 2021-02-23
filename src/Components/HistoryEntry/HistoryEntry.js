@@ -4,19 +4,23 @@ import './HistoryEntry.css'
 export default function HistoryEntry(
   {
     nameOfGame,
-    players
+    gamePlayers
   }
 ){
+  //const test = players.map(({player, score}, index) => {player, score, index})
+
+  //const playerObject = players
+
   return (
     <section>
       <h3>{nameOfGame}</h3>
-      {players.map((player, index) =>
-          <Player
-            key={index}
-            name={player.name}
-            score={player.score}
-          />
-        )}
+      {gamePlayers && gamePlayers.map(({player, score}, index) =>
+        <Player
+          key={player}
+          name={player}
+          score={score}
+        />
+      )}
     </section>
   )
 }

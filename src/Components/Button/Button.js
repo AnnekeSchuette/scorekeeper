@@ -1,9 +1,9 @@
 import React from 'react';
 import './Button.css'
 
-export default function Button({name, onClick, addClass}){
+export default function Button({name, onClick, className = '' }){
 
   return(
-    <button onClick={onClick} className={addClass ? "Button " + addClass : "Button"}>{name}</button>
+    <button onClick={onClick} className={'Button ' + className}>{name}</button>
   )
 }

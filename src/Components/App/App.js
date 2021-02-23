@@ -2,15 +2,15 @@ import React from 'react';
 import { useState } from 'react'
 import './App.css';
 import Header from '../Header/Header';
-import PlayerForm from '../PlayerForm/PlayerForm';
 import Button from '../Button/Button';
-import Player from '../Player/Player';
 import Navigation from '../Navigation/Navigation';
 import GameForm from '../GameForm/GameForm';
+import Player from '../Player/Player';
 import HistoryEntry from '../HistoryEntry/HistoryEntry';
 
 function App() {
 
+  const [activeIndex, setActiveIndex] = useState(0)
   const [players, setPlayers] = useState([])
   const [currentGame, setCurrentGame] = useState("")
   const [games, setGames] = useState([])
@@ -20,9 +20,7 @@ function App() {
   }
 
   function handleCreateGame(nameOfGame, playerNames){
-    setPlayers([
-      playerNames.map(player => ({name: player.name, score: 0}))
-    ])
+    setPlayers(playerNames.map(player => ({player, score: 0})))
     setCurrentGame(nameOfGame)
   }
 
@@ -30,7 +28,7 @@ function App() {
     setGames(oldGames => [
       ...oldGames, {
         nameOfGame: currentGame,
-        players: players.map(player => ({name: player.name, score: 0}))
+        players: players.map((player, index) => player[index])
       }]
       )
     resetAll()
@@ -54,6 +52,7 @@ function App() {
 
   function resetAll(){
     setPlayers([])
+    setCurrentGame("")
   }
 
   function resetScore(){
@@ -63,57 +62,65 @@ function App() {
     ))
   }
 
-  console.log(currentGame, players, games)
   return (
     <div className="App">
       <Header title={"Score Keeper"} />
       <main className="AppMain">
-        <PlayerForm
-          key="playerform"
-          onAddPlayer={handleAddPlayer}
-        />
 
-        {players && players.map((player, index) =>
-          <Player
-            key={player.index}
-            name={player.name}
-            score={player.score}
-            onPlus={() => handlePlus(index)}
-            onMinus={() => handleMinus(index)}
-          />
-        )}
-
-        <Button
-          onClick={resetScore}
-          name={"Reset Scores"}
-        />
-        <Button
-          onClick={resetAll}
-          name={"Reset All"}
-        />
-        <Button
-          onClick={handleSaveGame}
-          name={"End Game"}
-        />
-
-        <h3>Game Form</h3>
-        <GameForm onCreateGame={handleCreateGame}/>
-
-        <h3>History</h3>
-        {games && games.map((nameOfGame, players) =>
-            <HistoryEntry
-            nameOfGame={nameOfGame}
-            players={players}
-            />)
+        {(activeIndex === 0 && !currentGame) &&
+          <section>
+            <h3>Game Form</h3>
+            <GameForm key="gameform" onCreateGame={handleCreateGame}/>
+          </section>
         }
 
+      {(activeIndex === 0 && currentGame) &&
+          <section key="currentgame">
+            <h3>Play Game</h3>
+            {players && players.map(({player, score}, index) =>
+              <Player
+                key={index}
+                name={player}
+                score={score}
+                onPlus={() => handlePlus(index)}
+                onMinus={() => handleMinus(index)}
+              />
+            )}
+
+            <Button
+              onClick={resetScore}
+              name={"Reset Scores"}
+            />
+
+          </section>
+        }
+
+        {(activeIndex === 1) &&
+          <section key="history">
+            <h3>History</h3>
+            {games && games.map(({nameOfGame, players}, index) =>
+                <HistoryEntry
+                nameOfGame={nameOfGame}
+                gamePlayers={players}
+                />)
+            }
+          </section>
+        }
       </main>
 
-      <Navigation
-        onNavigate={index => console.log(index)}
-        activeIndex={0}
-        pages={['Play', 'History']}
-      />
+      {/* while game is running, show "End game" button, otherwise navigation */}
+      {currentGame ?
+        <Button
+            onClick={handleSaveGame}
+            name={"End Game"}
+          />
+      :
+        <Navigation
+          onNavigate={index => setActiveIndex(index)}
+          activeIndex={activeIndex}
+          pages={['Play', 'History']}
+        />
+      }
     </div>
   )
 }

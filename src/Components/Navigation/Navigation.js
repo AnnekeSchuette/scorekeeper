@@ -15,9 +15,9 @@ export default function Navigation({
       {pages.map((page, index) => (
         <Button
           key={page}
-          disabled={index === activeIndex}
+          isActive={index === activeIndex}
           onClick={() => onNavigate(index)}
-          addClass={index === activeIndex ? "Navigation__Button Navigation__Button--active" : "Navigation__Button"}
+          className={index === activeIndex ? "Navigation__Button Navigation__Button--active" : "Navigation__Button"}
           name={page}
         />
       ))}

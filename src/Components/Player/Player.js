@@ -10,9 +10,9 @@ export default function Player({
   return(
     <section className="Player">
       {name}
-      <Button onClick={onMinus} name={"-"} />
+      {onMinus && <Button onClick={onMinus} name={"-"} />}
       {score}
-      <Button onClick={onPlus} name={"+"} />
+      {onMinus && <Button onClick={onPlus} name={"+"} />}
     </section>
     )
 }
