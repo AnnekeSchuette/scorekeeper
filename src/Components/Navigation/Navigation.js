@@ -1,4 +1,4 @@
-import './Navigation.css'
+import styled from 'styled-components'
 import Button from '../Button/Button'
 
 export default function Navigation({
@@ -10,8 +10,7 @@ export default function Navigation({
   // const btnClasses = active ? "Navigation__Button Navigation__Button--active" : "Navigation__Button"
 
   return(
-    <nav className="Navigation">
-
+    <NavigationGrid>
       {pages.map((page, index) => (
         <Button
           key={page}
@@ -21,6 +20,11 @@ export default function Navigation({
           name={page}
         />
       ))}
-    </nav>
+    </NavigationGrid>
   )
 }
+
+const NavigationGrid = styled.nav`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`

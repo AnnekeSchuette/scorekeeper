@@ -1,9 +1,10 @@
 import React from 'react';
 import { useState } from 'react'
-import './App.css';
-import Header from '../Header/Header';
+import styled from 'styled-components/macro'
+import AppHeader from '../AppHeader/AppHeader';
+import PlayerForm from '../PlayerForm/PlayerForm';
 import Button from '../Button/Button';
-import Navigation from '../Navigation/Navigation';
+import NavigationGrid from '../Navigation/Navigation';
 import GameForm from '../GameForm/GameForm';
 import Player from '../Player/Player';
 import HistoryEntry from '../HistoryEntry/HistoryEntry';
@@ -14,6 +15,7 @@ function App() {
   const [players, setPlayers] = useState([])
   const [currentGame, setCurrentGame] = useState("")
   const [games, setGames] = useState([])
+  const [title, setTitle] = useState("Score keeper")
 
   function handleAddPlayer(name){
     setPlayers(oldPlayers => [...oldPlayers, {name, score: 0}])
@@ -63,9 +65,21 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Header title={"Score Keeper"} />
-      <main className="AppMain">
+    <AppGrid>
+      <AppHeader>{title}</AppHeader>
+      <AppMain>
+        {/* old player form */}
+        <PlayerForm
+          onAddPlayer={handleAddPlayer}
+        />
+        {players.map((player, index) =>
+          <Player
+            name={player.name}
+            score={player.score}
+            onPlus={() => handlePlus(index)}
+            onMinus={() => handleMinus(index)}
+          />
+        )}
 
         {(activeIndex === 0 && !currentGame) &&
           <section>
@@ -106,7 +120,7 @@ function App() {
             }
           </section>
         }
-      </main>
+      </AppMain>
 
       {/* while game is running, show "End game" button, otherwise navigation */}
       {currentGame ?
@@ -115,14 +129,25 @@ function App() {
             name={"End Game"}
           />
       :
-        <Navigation
-          onNavigate={index => setActiveIndex(index)}
-          activeIndex={activeIndex}
-          pages={['Play', 'History']}
-        />
+        <NavigationGrid>
+          <Button onClick={resetScore}>Reset Scores</Button>
+          <Button onClick={resetAll}>Reset All</Button>
+        </NavigationGrid>
       }
-    </div>
+  </AppGrid>
   )
 }
+
+const AppGrid = styled.div`
+  text-align: center;
+  max-width: 375px;
+  margin: 0 auto;
+`
+
+const AppMain = styled.main`
+  padding:20px;
+  display: grid;
+  gap:10px;
+`
 
 export default App
