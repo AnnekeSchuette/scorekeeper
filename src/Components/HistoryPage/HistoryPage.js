@@ -1,8 +1,9 @@
 import HistoryEntry from '../HistoryEntry/HistoryEntry'
-import './HistoryPage.css'
 
-export default function HistoryPage({players, nameOfGame}){
+export default function HistoryPage({
+  players, nameOfGame, id
+}){
  return (
-  <HistoryEntry players={players} nameOfGame={nameOfGame} />
+  <HistoryEntry players={players} nameOfGame={nameOfGame} id={id} />
  )
 }

@@ -1,24 +1,22 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import Button from '../Button/Button'
 
 export default function Navigation({
   pages,
-  activeIndex,
+  currentPage,
+  setCurrentPage,
   onNavigate
 }){
-  // const active = false
-  // const btnClasses = active ? "Navigation__Button Navigation__Button--active" : "Navigation__Button"
 
   return(
-    <NavigationGrid>
-      {pages.map((page, index) => (
+    <NavigationGrid pages={pages} currentPage={currentPage} onNavigate={setCurrentPage}>
+      {pages.map((page) => (
         <Button
           key={page}
-          isActive={index === activeIndex}
-          onClick={() => onNavigate(index)}
-          className={index === activeIndex ? "Navigation__Button Navigation__Button--active" : "Navigation__Button"}
+          isActive={page === currentPage}
+          onClick={() => onNavigate(page)}
           name={page}
-        />
+        >{page}</Button>
       ))}
     </NavigationGrid>
   )
@@ -27,4 +25,11 @@ export default function Navigation({
 const NavigationGrid = styled.nav`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap:1px;
+
+  button {
+    flex:1 1 auto;
+    border-radius: 0;
+    margin:0;
+  }
 `

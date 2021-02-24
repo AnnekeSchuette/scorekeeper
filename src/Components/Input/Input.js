@@ -1,4 +1,4 @@
-import './Input.css'
+import styled from 'styled-components/macro'
 
 export default function Input({
   labelText,
@@ -8,9 +8,18 @@ export default function Input({
 }){
   return (
     <div className={"Input " + className}>
-      <label className={"Input__Label"}>{labelText}
-        <input className={"Input__Field"} type="text" name={inputName} placeholder={placeholderText} />
-      </label>
+      <InputLabel>{labelText}
+        <InputField type="text" name={inputName} placeholder={placeholderText} />
+      </InputLabel>
     </div>
   )
 }
+
+const InputField = styled.input`
+  border: 1px solid #222;
+  padding: 5px 10px;
+  font-size: 1em;
+`
+const InputLabel = styled.label`
+  color:#222;
+`

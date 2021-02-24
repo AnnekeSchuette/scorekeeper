@@ -1,8 +1,8 @@
 import styled from 'styled-components/macro'
 
-export default function PlayerForm({onAddPlayer}){
+export default function PlayerForm({onAddPlayer,handleAddPlayer}){
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} onAddPlayer={handleAddPlayer}>
       <Label htmlFor="player">Add player:</Label>
       <Input id="player" type="text" name="player" placeholder="Player name" />
     </Form>

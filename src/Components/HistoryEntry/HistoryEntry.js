@@ -1,10 +1,10 @@
+import styled from 'styled-components/macro'
 import Player from '../Player/Player'
-import './HistoryEntry.css'
 
 export default function HistoryEntry(
   {
     nameOfGame,
-    gamePlayers
+    players
   }
 ){
   //const test = players.map(({player, score}, index) => {player, score, index})
@@ -12,15 +12,24 @@ export default function HistoryEntry(
   //const playerObject = players
 
   return (
-    <section>
+    <Wrapper>
       <h3>{nameOfGame}</h3>
-      {gamePlayers && gamePlayers.map(({player, score}, index) =>
-        <Player
-          key={player}
-          name={player}
-          score={score}
+      {players && players.map((player, index) =>
+        <Player key={index} name={player.name} score={player.score}
         />
       )}
-    </section>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.section`
+  display: grid;
+  gap: 10px;
+  background-color:#eee;
+  padding:20px;
+  margin-bottom:20px;
+
+  h3{
+    margin:0px;
+  }
+`

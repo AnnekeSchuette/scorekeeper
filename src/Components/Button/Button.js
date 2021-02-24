@@ -1,15 +1,7 @@
 import styled from 'styled-components/macro'
 
-<<<<<<< HEAD
-export default function Button({name, onClick, className = '' }){
-
-  return(
-    <button onClick={onClick} className={'Button ' + className}>{name}</button>
-  )
-}
-=======
 export default styled.button`
-  background: #222;
+  background-color: ${props => (props.isActive ? 'hotpink' : '#222')};
   color:#fff;
   border:none;
   border-radius:3px;
@@ -17,4 +9,3 @@ export default styled.button`
   margin: 5px;
   font-size: 1em;
 `
->>>>>>> main
