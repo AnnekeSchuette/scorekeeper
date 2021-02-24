@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 
 export default styled.button`
-  background: #222;
+  background-color: ${props => (props.isActive ? 'hotpink' : '#222')};
   color:#fff;
   border:none;
   border-radius:3px;

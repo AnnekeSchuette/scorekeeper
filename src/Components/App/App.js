@@ -1,18 +1,83 @@
-import React from 'react';
+import React from 'react'
 import { useState } from 'react'
 import styled from 'styled-components/macro'
-import AppHeader from '../AppHeader/AppHeader';
-import PlayerForm from '../PlayerForm/PlayerForm';
-import Button from '../Button/Button';
-import Player from '../Player/Player';
+import AppHeader from '../AppHeader/AppHeader'
+import Button from '../Button/Button'
+import NavigationGrid from '../Navigation/Navigation'
+import GameForm from '../GameForm/GameForm'
+import Player from '../Player/Player'
+import HistoryEntry from '../HistoryEntry/HistoryEntry'
+import { v4 as uuidv4 } from 'uuid'
 
 function App() {
 
   const [players, setPlayers] = useState([])
-  const [title, setTitle] = useState("Score keeper")
+  const [nameOfGame, setNameOfGame] = useState('')
+  const [currentPage, setCurrentPage] = useState('Play')
+  const [history, setHistory] = useState([])
+  const [title, setTitle] = useState('Score keeper')
+  const pages = ['Play', 'History']
 
-  function handleAddPlayer(name){
-    setPlayers(oldPlayers => [...oldPlayers, {name, score: 0}])
+  return (
+    <AppGrid>
+      <AppHeader>{title}</AppHeader>
+      <AppMain>
+
+        {(currentPage === 'Play') &&
+          <section>
+            <h3>Game Form</h3>
+            <GameForm onCreateGame={createGame} />
+          </section>
+        }
+
+        {(currentPage === 'Game') &&
+          <section key={nameOfGame}>
+            {players && players.map(({name, score}, index) =>
+              <Player
+                key={index}
+                name={name}
+                score={score}
+                onPlus={() => handlePlus(index)}
+                onMinus={() => handleMinus(index)}
+              />
+            )}
+            <Button onClick={resetScore}>Reset Scores</Button>
+          </section>
+        }
+
+        {(currentPage === 'History') &&
+          <section key="history">
+            {history.map(({ nameOfGame, players, id }) => (
+              <HistoryEntry key={id} nameOfGame={nameOfGame} players={players} />
+            ))}
+          </section>
+        }
+      </AppMain>
+
+      {/* while game is running, show "End game" button, otherwise navigation */}
+      {currentPage === 'Game' ?
+        <Button onClick={endGame}>End Game</Button>
+      :
+        <NavigationGrid pages={pages} currentPage={currentPage} onNavigate={setCurrentPage}></NavigationGrid>
+      }
+  </AppGrid>
+  )
+
+
+  function createGame({ nameOfGame, playerNames }) {
+    // playerNames is ['Jane', 'John']
+    setNameOfGame(nameOfGame)
+    setPlayers(playerNames.map(name => ({ name, score: 0 })))
+    setCurrentPage('Game')
+    setTitle(nameOfGame)
+  }
+
+  function endGame() {
+    setHistory([{ players, nameOfGame, id: uuidv4() }, ...history])
+    setPlayers([])
+    setNameOfGame('')
+    setCurrentPage('Play')
+    setTitle('Play')
   }
 
   function handlePlus(index){
@@ -31,37 +96,12 @@ function App() {
     ])
   }
 
-  function resetAll(){
-    setPlayers([])
+  function resetScore(){
+    setPlayers(players.map(player => (
+      { ...player, score: 0 }
+      )
+    ))
   }
-
-  function resetScore(name){
-    setPlayers(players.map(player => ({ ...player, score: 0 })))
-  }
-
-  return (
-    <AppGrid>
-      <AppHeader>{title}</AppHeader>
-      <AppMain>
-        <PlayerForm
-          onAddPlayer={handleAddPlayer}
-        />
-
-        {players.map((player, index) =>
-          <Player
-            name={player.name}
-            score={player.score}
-            onPlus={() => handlePlus(index)}
-            onMinus={() => handleMinus(index)}
-          />
-        )}
-        <NavigationGrid>
-          <Button onClick={resetScore}>Reset Scores</Button>
-          <Button onClick={resetAll}>Reset All</Button>
-        </NavigationGrid>
-      </AppMain>
-    </AppGrid>
-  )
 }
 
 const AppGrid = styled.div`
@@ -74,11 +114,6 @@ const AppMain = styled.main`
   padding:20px;
   display: grid;
   gap:10px;
-`
-
-const NavigationGrid = styled.nav`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
 `
 
 export default App
