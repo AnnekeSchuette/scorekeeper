@@ -4,10 +4,10 @@ import styled from 'styled-components/macro'
 import AppHeader from '../AppHeader/AppHeader'
 import Button from '../Button/Button'
 import NavigationGrid from '../Navigation/Navigation'
-import GameForm from '../GameForm/GameForm'
-import Player from '../Player/Player'
-import HistoryEntry from '../HistoryEntry/HistoryEntry'
 import { v4 as uuidv4 } from 'uuid'
+import HistoryPage from '../HistoryPage/HistoryPage'
+import PlayPage from '../PlayPage/PlayPage'
+import GamePage from '../GamePage/GamePage'
 
 function App() {
 
@@ -23,35 +23,16 @@ function App() {
       <AppHeader>{title}</AppHeader>
       <AppMain>
 
-        {(currentPage === 'Play') &&
-          <section>
-            <h3>Game Form</h3>
-            <GameForm onCreateGame={createGame} />
-          </section>
-        }
+        {(currentPage === 'Play') && <PlayPage createGame={createGame} />}
 
-        {(currentPage === 'Game') &&
-          <section key={nameOfGame}>
-            {players && players.map(({name, score}, index) =>
-              <Player
-                key={index}
-                name={name}
-                score={score}
-                onPlus={() => handlePlus(index)}
-                onMinus={() => handleMinus(index)}
-              />
-            )}
-            <Button onClick={resetScore}>Reset Scores</Button>
-          </section>
-        }
+        {(currentPage === 'Game') && <GamePage
+            players={players}
+            handleMinus={handleMinus}
+            handlePlus={handlePlus} r
+            esetScore={resetScore}
+        />}
 
-        {(currentPage === 'History') &&
-          <section key="history">
-            {history.map(({ nameOfGame, players, id }) => (
-              <HistoryEntry key={id} nameOfGame={nameOfGame} players={players} />
-            ))}
-          </section>
-        }
+        {(currentPage === 'History') && <HistoryPage history={history} />}
       </AppMain>
 
       {/* while game is running, show "End game" button, otherwise navigation */}

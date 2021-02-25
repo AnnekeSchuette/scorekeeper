@@ -27,7 +27,6 @@ const Wrapper = styled.section`
   gap: 10px;
   background-color:#eee;
   padding:20px;
-  margin-bottom:20px;
 
   h3{
     margin:0px;

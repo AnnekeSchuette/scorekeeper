@@ -37,5 +37,6 @@ export default function GameForm({onCreateGame}){
 }
 
 const FormGrid = styled.form`
-  display: grid;
+  display:grid;
+  gap:20px;
 `
