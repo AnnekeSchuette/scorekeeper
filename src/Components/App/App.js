@@ -1,13 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
 import styled from 'styled-components/macro'
-import AppHeader from '../AppHeader/AppHeader'
-import Button from '../Button/Button'
-import NavigationGrid from '../Navigation/Navigation'
 import { v4 as uuidv4 } from 'uuid'
-import HistoryPage from '../HistoryPage/HistoryPage'
-import PlayPage from '../PlayPage/PlayPage'
+import AppHeader from '../AppHeader/AppHeader'
+import CreatePage from '../CreatePage/CreatePage'
 import GamePage from '../GamePage/GamePage'
+import HistoryPage from '../HistoryPage/HistoryPage'
+import NavigationGrid from '../Navigation/Navigation'
+import Button from '../Button/Button'
 
 function App() {
 
@@ -23,7 +23,7 @@ function App() {
       <AppHeader>{title}</AppHeader>
       <AppMain>
 
-        {(currentPage === 'Play') && <PlayPage createGame={createGame} />}
+        {(currentPage === 'Play') && <CreatePage createGame={createGame} />}
 
         {(currentPage === 'Game') && <GamePage
             players={players}

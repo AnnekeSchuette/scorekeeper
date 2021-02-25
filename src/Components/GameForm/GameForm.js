@@ -1,7 +1,7 @@
+import styled from 'styled-components/macro'
+import { v4 as uuidv4 } from 'uuid'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
-import styled from 'styled-components'
-import { v4 as uuidv4 } from 'uuid'
 
 export default function GameForm({onCreateGame}){
   return (

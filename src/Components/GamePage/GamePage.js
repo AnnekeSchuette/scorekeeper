@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 import Player from '../Player/Player'
 import Button from '../Button/Button'
 
-export default function HistoryPage({players, handlePlus, handleMinus, resetScore}){
+export default function GamePage({players, handlePlus, handleMinus, resetScore}){
  return (
    <Wrapper>
       {players && players.map(({name, score}, index) =>

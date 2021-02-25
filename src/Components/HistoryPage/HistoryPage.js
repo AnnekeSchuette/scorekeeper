@@ -1,5 +1,5 @@
-import HistoryEntry from '../HistoryEntry/HistoryEntry'
 import styled from 'styled-components/macro'
+import HistoryEntry from '../HistoryEntry/HistoryEntry'
 
 export default function HistoryPage({
   history
