@@ -8,4 +8,9 @@ export default styled.button`
   padding:5px 15px;
   margin: 5px;
   font-size: 1em;
+  text-decoration:none;
+
+  &.active {
+    background-color:hotpink;
+  }
 `

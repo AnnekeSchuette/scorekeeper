@@ -1,22 +1,22 @@
 import styled from 'styled-components/macro'
+import {NavLink} from "react-router-dom";
 import Button from '../Button/Button'
 
 export default function Navigation({
-  pages,
-  currentPage,
-  setCurrentPage,
-  onNavigate
+  pages
 }){
 
   return(
-    <NavigationGrid pages={pages} currentPage={currentPage} onNavigate={setCurrentPage}>
-      {pages.map((page) => (
+    <NavigationGrid pages={pages}>
+      {pages.map(({name, path}) => (
         <Button
-          key={page}
-          isActive={page === currentPage}
-          onClick={() => onNavigate(page)}
-          name={page}
-        >{page}</Button>
+          as={NavLink}
+          key={name}
+          exact
+          to={path}
+        >
+          {name}
+        </Button>
       ))}
     </NavigationGrid>
   )

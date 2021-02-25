@@ -8,7 +8,7 @@ import GamePage from '../GamePage/GamePage'
 import HistoryPage from '../HistoryPage/HistoryPage'
 import NavigationGrid from '../Navigation/Navigation'
 import Button from '../Button/Button'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, useHistory } from 'react-router-dom'
 
 function App() {
 
@@ -17,7 +17,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState('Play')
   const [history, setHistory] = useState([])
   const [title, setTitle] = useState('Score keeper')
-  const pages = ['Play', 'History']
+  const pages = [{name: 'Create', path:'/'}, {name: 'History', path:'history'}]
+  let navHistory = useHistory()
 
   return (
     <AppGrid>
@@ -61,6 +62,7 @@ function App() {
     setPlayers(playerNames.map(name => ({ name, score: 0 })))
     setCurrentPage('Game')
     setTitle(nameOfGame)
+    navHistory.push("/game")
   }
 
   function endGame() {
@@ -69,6 +71,7 @@ function App() {
     setNameOfGame('')
     setCurrentPage('Play')
     setTitle('Play')
+    navHistory.push("/")
   }
 
   function handlePlus(index){
