@@ -13,7 +13,7 @@ export default function Player({ name, score, onMinus, onPlus }) {
       {name}
       <PlayerScore color={color}>
         {onMinus && <Button onClick={onMinus}>-</Button>}
-        <span>{score}</span>
+        <ScoreNumber>{score}</ScoreNumber>
         {onPlus && <Button onClick={onPlus}>+</Button>}
       </PlayerScore>
     </PlayerWrapper>
@@ -21,14 +21,19 @@ export default function Player({ name, score, onMinus, onPlus }) {
 }
 
 const PlayerWrapper = styled.section`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   align-items: center;
+  place-items:start;
   justify-content: space-between;
 `
 const PlayerScore = styled.div`
   color: ${props => props.color || 'black'};
   display: grid;
-  gap: 5px;
   grid-template-columns: repeat(3, 1fr);
-  place-items: center;
+  justify-items: center;
+`
+
+const ScoreNumber = styled.span`
+  text-align:right;
 `

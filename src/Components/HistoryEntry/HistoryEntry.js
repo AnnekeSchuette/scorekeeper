@@ -15,8 +15,7 @@ export default function HistoryEntry(
     <Wrapper>
       <h3>{nameOfGame}</h3>
       {players && players.map((player, index) =>
-        <Player key={index} name={player.name} score={player.score}
-        />
+        <Player key={index} name={player.name} score={player.score} />
       )}
     </Wrapper>
   )

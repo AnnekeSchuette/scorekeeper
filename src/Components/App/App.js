@@ -39,7 +39,11 @@ function App() {
       {currentPage === 'Game' ?
         <Button onClick={endGame}>End Game</Button>
       :
-        <NavigationGrid pages={pages} currentPage={currentPage} onNavigate={setCurrentPage}></NavigationGrid>
+        <NavigationGrid
+          pages={pages}
+          currentPage={currentPage}
+          onNavigate={setCurrentPage}
+        />
       }
   </AppGrid>
   )
