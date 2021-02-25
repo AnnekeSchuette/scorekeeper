@@ -1,6 +1,7 @@
+import styled from 'styled-components/macro'
+import { v4 as uuidv4 } from 'uuid'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
-import styled from 'styled-components'
 
 export default function GameForm({onCreateGame}){
   return (
@@ -8,14 +9,16 @@ export default function GameForm({onCreateGame}){
       <Input
         className="GameForm__Field"
         labelText="Name of game"
-        inputName="nameOfGame"
+        name="nameOfGame"
         placeholderText="e.g. Carcassonne"
+        id={uuidv4()}
       />
       <Input
         className="GameForm__Field"
         labelText="Player names"
-        inputName="playerNames"
+        name="playerNames"
         placeholderText="e.g. John Doe, Jane Doe"
+        id={uuidv4()}
       />
       <Button addClass={"GameForm__Button"}>Create game</Button>
     </FormGrid>
@@ -37,5 +40,6 @@ export default function GameForm({onCreateGame}){
 }
 
 const FormGrid = styled.form`
-  display: grid;
+  display:grid;
+  gap:20px;
 `

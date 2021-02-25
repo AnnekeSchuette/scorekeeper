@@ -15,8 +15,7 @@ export default function HistoryEntry(
     <Wrapper>
       <h3>{nameOfGame}</h3>
       {players && players.map((player, index) =>
-        <Player key={index} name={player.name} score={player.score}
-        />
+        <Player key={index} name={player.name} score={player.score} />
       )}
     </Wrapper>
   )
@@ -27,7 +26,6 @@ const Wrapper = styled.section`
   gap: 10px;
   background-color:#eee;
   padding:20px;
-  margin-bottom:20px;
 
   h3{
     margin:0px;

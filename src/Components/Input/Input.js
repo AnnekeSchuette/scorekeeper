@@ -2,19 +2,22 @@ import styled from 'styled-components/macro'
 
 export default function Input({
   labelText,
-  inputName,
+  name,
   className,
-  placeholderText
+  placeholderText,
+  id
 }){
   return (
-    <div className={"Input " + className}>
-      <InputLabel>{labelText}
-        <InputField type="text" name={inputName} placeholder={placeholderText} />
-      </InputLabel>
-    </div>
+    <InputWrapper className={"Input " + className}>
+      <InputLabel htmlFor={id}>{labelText}</InputLabel>
+      <InputField id={id} type="text" name={name} placeholder={placeholderText} />
+    </InputWrapper>
   )
 }
 
+const InputWrapper = styled.div`
+  display:grid;
+`
 const InputField = styled.input`
   border: 1px solid #222;
   padding: 5px 10px;

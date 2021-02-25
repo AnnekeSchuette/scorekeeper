@@ -1,13 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
 import styled from 'styled-components/macro'
-import AppHeader from '../AppHeader/AppHeader'
-import Button from '../Button/Button'
-import NavigationGrid from '../Navigation/Navigation'
-import GameForm from '../GameForm/GameForm'
-import Player from '../Player/Player'
-import HistoryEntry from '../HistoryEntry/HistoryEntry'
 import { v4 as uuidv4 } from 'uuid'
+import AppHeader from '../AppHeader/AppHeader'
+import CreatePage from '../CreatePage/CreatePage'
+import GamePage from '../GamePage/GamePage'
+import HistoryPage from '../HistoryPage/HistoryPage'
+import NavigationGrid from '../Navigation/Navigation'
+import Button from '../Button/Button'
 
 function App() {
 
@@ -23,42 +23,27 @@ function App() {
       <AppHeader>{title}</AppHeader>
       <AppMain>
 
-        {(currentPage === 'Play') &&
-          <section>
-            <h3>Game Form</h3>
-            <GameForm onCreateGame={createGame} />
-          </section>
-        }
+        {(currentPage === 'Play') && <CreatePage createGame={createGame} />}
 
-        {(currentPage === 'Game') &&
-          <section key={nameOfGame}>
-            {players && players.map(({name, score}, index) =>
-              <Player
-                key={index}
-                name={name}
-                score={score}
-                onPlus={() => handlePlus(index)}
-                onMinus={() => handleMinus(index)}
-              />
-            )}
-            <Button onClick={resetScore}>Reset Scores</Button>
-          </section>
-        }
+        {(currentPage === 'Game') && <GamePage
+            players={players}
+            handleMinus={handleMinus}
+            handlePlus={handlePlus}
+            resetScore={resetScore}
+        />}
 
-        {(currentPage === 'History') &&
-          <section key="history">
-            {history.map(({ nameOfGame, players, id }) => (
-              <HistoryEntry key={id} nameOfGame={nameOfGame} players={players} />
-            ))}
-          </section>
-        }
+        {(currentPage === 'History') && <HistoryPage history={history} />}
       </AppMain>
 
       {/* while game is running, show "End game" button, otherwise navigation */}
       {currentPage === 'Game' ?
         <Button onClick={endGame}>End Game</Button>
       :
-        <NavigationGrid pages={pages} currentPage={currentPage} onNavigate={setCurrentPage}></NavigationGrid>
+        <NavigationGrid
+          pages={pages}
+          currentPage={currentPage}
+          onNavigate={setCurrentPage}
+        />
       }
   </AppGrid>
   )
