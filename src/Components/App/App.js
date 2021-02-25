@@ -8,6 +8,7 @@ import GamePage from '../GamePage/GamePage'
 import HistoryPage from '../HistoryPage/HistoryPage'
 import NavigationGrid from '../Navigation/Navigation'
 import Button from '../Button/Button'
+import { Route, Switch } from 'react-router-dom'
 
 function App() {
 
@@ -22,32 +23,37 @@ function App() {
     <AppGrid>
       <AppHeader>{title}</AppHeader>
       <AppMain>
-
-        {(currentPage === 'Play') && <CreatePage createGame={createGame} />}
-
-        {(currentPage === 'Game') && <GamePage
-            players={players}
-            handleMinus={handleMinus}
-            handlePlus={handlePlus}
-            resetScore={resetScore}
-        />}
-
-        {(currentPage === 'History') && <HistoryPage history={history} />}
+        <Switch>
+          <Route exact path="/">
+            <CreatePage createGame={createGame} />
+          </Route>
+          <Route path="/game">
+            <GamePage
+              players={players}
+              handleMinus={handleMinus}
+              handlePlus={handlePlus}
+              resetScore={resetScore}
+            />
+          </Route>
+          <Route path="/history">
+            <HistoryPage history={history} />
+          </Route>
+        </Switch>
+        <Switch>
+          <Route path="/game">
+            <Button onClick={endGame}>End Game</Button>
+          </Route>
+          <Route exact path={["/", "/history"]}>
+            <NavigationGrid
+              pages={pages}
+              currentPage={currentPage}
+              onNavigate={setCurrentPage}
+            />
+          </Route>
+        </Switch>
       </AppMain>
-
-      {/* while game is running, show "End game" button, otherwise navigation */}
-      {currentPage === 'Game' ?
-        <Button onClick={endGame}>End Game</Button>
-      :
-        <NavigationGrid
-          pages={pages}
-          currentPage={currentPage}
-          onNavigate={setCurrentPage}
-        />
-      }
   </AppGrid>
   )
-
 
   function createGame({ nameOfGame, playerNames }) {
     // playerNames is ['Jane', 'John']
