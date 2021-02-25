@@ -28,8 +28,8 @@ function App() {
         {(currentPage === 'Game') && <GamePage
             players={players}
             handleMinus={handleMinus}
-            handlePlus={handlePlus} r
-            esetScore={resetScore}
+            handlePlus={handlePlus}
+            resetScore={resetScore}
         />}
 
         {(currentPage === 'History') && <HistoryPage history={history} />}
